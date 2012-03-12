@@ -22,15 +22,7 @@
 			<li><a href="">Про нас</a></li>
 			<li><a href="">Запасний</a></li>
 		</ul>
-		
-<!--		<ul class="breadcrumbs alt1">
-			<li class="previous"><a href="">Крок 1</a></li>
-			<li class="current"><a href="">Крок 2</a></li>
-			<li class="next"><a href="">Крок 3</a></li>
-			<li class="next"><a href="">Крок 4</a></li>
-			<li class="next"><a href="">Крок 5</a></li>
-		</ul>
--->		 
+	 
 		<div id="main" class="col_12 column">
 		<h4 id="counter">Кількість балів <span>0</span></h4>
 			<div class="col_9 column">
@@ -67,6 +59,12 @@ $(function() {
 	});
 
 	setTimeout(setCount, 200);
+	setTimeout(navButtons, 300);
+	setTimeout(setFancy, 300);
+	
+	function setFancy() {
+		$('select.fancy').chosen();
+	}
 	
 	function setCount() {
 		var fields = $("form select");
@@ -85,6 +83,23 @@ $(function() {
 			counter.find("span").html(sum);
 		});
 	}
+	
+	function navButtons() {
+		var forms = $("form");
+		$.each(forms, function() {
+			var currentStep = +$(this).find(".current-step").val();
+			$(this).find(".next").bind('click', function(){
+				$("ul.tabs a[href=#tabr" + (currentStep+1) + "]").click();
+			});
+			$(this).find(".previous").bind('click', function() {
+				$("ul.tabs a[href=#tabr" + (currentStep-1) + "]").click();
+			});
+		})
+		
+	}
+	
+	
+	
 });
 </script>
 

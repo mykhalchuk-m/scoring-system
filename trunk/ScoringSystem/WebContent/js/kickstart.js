@@ -120,7 +120,7 @@ jQuery(document).ready(function($){
 	/*---------------------------------
 		SELECT MENUS - CHOSEN
 	-----------------------------------*/
-	$('select.fancy').chosen();
+	//$('select.fancy').chosen();
 	
 	/*---------------------------------
 		MEDIA
