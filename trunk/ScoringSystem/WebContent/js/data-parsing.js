@@ -18,6 +18,7 @@ function parse() {
 				content += "</select>";
 			});
 			content += "</fieldset>";
+			content += "<button id='submit' type='submit'>Далі<span class='icon' data-icon='}'/></button>";
 			$("#form-step").html(content);
 		}
 	});
