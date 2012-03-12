@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+	<bean
+		name="Аналіз кредитоспроможності позичальника на основі загальних даних">
+		<property name="вік">
+			<map>
+				<entry key="більше 70 років" value="0" />
+				<entry key="менше 20 років та від 50 до 70 років" value="0.9" />
+				<entry key="від 20 до 30 років" value="1.8" />
+				<entry key="від 30 до 50 років" value="3" />
+			</map>
+		</property>
+		<property name="Час проживання в даній місцевості">
+			<map>
+				<entry key="до 1-го року" value="0" />
+				<entry key="1-3 роки" value="0.4" />
+				<entry key="3-10 років" value="1.9" />
+				<entry key="понад 10 років" value="2" />
+			</map>
+		</property>
+		<property name="Освіта">
+			<map>
+				<entry key="середня" value="0" />
+				<entry key="середня спеціальна, середня технічна, незакінчена вища освіта" value="1.5" />
+				<entry key="вища" value="3" />
+			</map>
+		</property>
+		<property name="Місце роботи">
+			<map>
+				<entry key="Безробітний, студент" value="0" />
+				<entry key="Пенсіонер" value="1.5" />
+				<entry key="Працюючий / Особисте господарство" value="3" />
+			</map>
+		</property>
+		<property name="Посада">
+			<map>
+				<entry key="Нема" value="0" />
+				<entry key="Виконавець / Працівник власного присадибного господарства" value="1" />
+				<entry key="Начальник структурного підрозділу, заступник керівника" value="3" />
+				<entry key="Керівник, приватний підприємець, засновник фермерського господарства з часткою понад 50%" value="5" />
+			</map>
+		</property>
+		<property name="Стаж роботи">
+			<map>
+				<entry key="Нема" value="0" />
+				<entry key="до 1-го року" value="0.4" />
+				<entry key="1-5 років" value="1.2" />
+				<entry key="понад 5 років" value="5" />
+			</map>
+		</property>
+		<property name="Сімейний стан">
+			<map>
+				<entry key="неодружений / поза шлюбом і нема дітей" value="1" />
+				<entry key="неодружений / поза шлюбом і є діти" value="0" />
+				<entry key="перебуває в шлюбі і нема дітей" value="1.6" />
+				<entry key="перебуває в шлюбі і є діти" value="1" />
+			</map>
+		</property>
+	</bean>
+
+</beans>
