@@ -93,12 +93,12 @@ border-radius:3px;
 	CUSTOM STYLE
 -----------------------------------*/
 .error {
-	border: 1px solid red;
-	color: red;
+	border: 1px solid red !important;
+	color: red !important;
 }
 
-label{
-	text-align: right;
+label.error {
+    border: none !important;
 }
 
 #submit {
@@ -109,4 +109,22 @@ label{
 
 br {
 	clear:both;
+}
+
+.chzn-container {
+    width: 350px !important;
+}
+.chzn-drop {
+    width: 329px !important;
+}
+.chzn-search input {
+    width: 294px !important;
+}
+
+form.vertical .chzn-container {
+    margin-bottom: 15px;
+}
+
+#steps {
+    display: none;
 }

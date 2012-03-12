@@ -3,7 +3,7 @@
 	xsi:schemaLocation="
 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 	<bean id="bean1" name="Аналіз кредитоспроможності позичальника на основі загальних даних">
-		<property name="вік">
+		<property name="Вік">
 			<map>
 				<entry key="більше 70 років" value="0" />
 				<entry key="менше 20 років та від 50 до 70 років" value="0.9" />
