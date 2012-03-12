@@ -24,22 +24,26 @@
 		</ul>
 	 
 		<div id="main" class="col_12 column">
-		<h4 id="counter">Кількість балів <span>0</span></h4>
 			<div class="col_9 column">
 				<ul id="steps" class="tabs left">
 					<li data-tabid="1"><a href="#tabr1">Крок 1</a></li>
 					<li data-tabid="2"><a href="#tabr2">Крок 2</a></li>
 					<li data-tabid="3"><a href="#tabr3">Крок 3</a></li>
+					<li data-tabid="4"><a href="#tabr4">Результат</a></li>
 				</ul>
 				
-				<div id="tabr1" class="tab-content">1</div>
-				<div id="tabr2" class="tab-content">2</div>
-				<div id="tabr3" class="tab-content">3</div>
+				<div id="tabr1" class="tab-content"></div>
+				<div id="tabr2" class="tab-content"></div>
+				<div id="tabr3" class="tab-content"></div>
+				<div id="tabr4" class="tab-content">
+                    <h4 id="counter">Кількість балів <span>0</span></h4>
+                </div>
 				
 			</div>
 
 			<div class="col_3">
 				<h6>Якийсь хелпер</h6>
+                <p>Оберіть підходящий вам варіант. Всі поля повинні обов'язково бути заповнені.</p>
 			</div>
 
 		</div>
@@ -53,48 +57,10 @@
 
 <script type="text/javascript">
 
-	ready = false;
-
-	$("#steps li").each(function() {
-		parse($(this).data("tabid"));
-	});
-	
-	
 	
 	
 $(function() {	
-	setCount();
-	navButtons();
-
-	function setCount() {
-		var counter = $("#counter");
-		$(".tab-content").on('change', "form select",  function() {
-			var sum = 0;
-
-			$.each($("form select"), function() {
-				var value = +$(this).find("option:selected").val();
-				if(value != 42) {
-					sum += value;
-				};
-			});
-
-			counter.find("span").html(sum);
-		});
-	}
-	
-	function navButtons() {
-		$(".tab-content").on('change', "form select",  function() {
-			$.each($("form"), function() {
-				var currentStep = +$(this).find(".current-step").val();
-				$(this).find(".next").bind('click', function(){
-					$("ul.tabs a[href=#tabr" + (currentStep+1) + "]").click();
-				});
-				$(this).find(".previous").bind('click', function() {
-					$("ul.tabs a[href=#tabr" + (currentStep-1) + "]").click();
-				});
-			});
-		});
-	};
+    parse();
 });
 </script>
 

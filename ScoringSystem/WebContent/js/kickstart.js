@@ -3,8 +3,8 @@
 	kickstart.js
 */
 
-jQuery(document).ready(function($){
-
+//jQuery(document).ready(function($){
+function initKick() {
 
 	/*---------------------------------
 		MENU Dropdowns
@@ -396,7 +396,7 @@ jQuery(document).ready(function($){
 	  );
 	$('pre').addClass('prettyprint');prettyPrint();
 	
-});
+};
 
 /**
  * jQuery.LocalScroll - Animated scrolling navigation, using anchors.
