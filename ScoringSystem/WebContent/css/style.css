@@ -106,3 +106,7 @@ label{
 	margin-top: 10px;
 	padding-right: 3px;
 }
+
+br {
+	clear:both;
+}

@@ -5,6 +5,7 @@
 
 jQuery(document).ready(function($){
 
+
 	/*---------------------------------
 		MENU Dropdowns
 	-----------------------------------*/
@@ -120,7 +121,7 @@ jQuery(document).ready(function($){
 	/*---------------------------------
 		SELECT MENUS - CHOSEN
 	-----------------------------------*/
-	//$('select.fancy').chosen();
+	$('select.fancy').chosen();
 	
 	/*---------------------------------
 		MEDIA

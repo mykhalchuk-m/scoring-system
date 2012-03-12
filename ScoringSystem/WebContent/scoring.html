@@ -52,28 +52,26 @@
 	</div>
 
 <script type="text/javascript">
-$(function() {
+
+	ready = false;
 
 	$("#steps li").each(function() {
 		parse($(this).data("tabid"));
 	});
+	
+	
+	
+	
+$(function() {	
+	setCount();
+	navButtons();
 
-	setTimeout(setCount, 200);
-	setTimeout(navButtons, 300);
-	setTimeout(setFancy, 300);
-	
-	function setFancy() {
-		$('select.fancy').chosen();
-	}
-	
 	function setCount() {
-		var fields = $("form select");
 		var counter = $("#counter");
-
-		fields.bind('change', function() {
+		$(".tab-content").on('change', "form select",  function() {
 			var sum = 0;
 
-			$.each(fields, function() {
+			$.each($("form select"), function() {
 				var value = +$(this).find("option:selected").val();
 				if(value != 42) {
 					sum += value;
@@ -85,21 +83,18 @@ $(function() {
 	}
 	
 	function navButtons() {
-		var forms = $("form");
-		$.each(forms, function() {
-			var currentStep = +$(this).find(".current-step").val();
-			$(this).find(".next").bind('click', function(){
-				$("ul.tabs a[href=#tabr" + (currentStep+1) + "]").click();
+		$(".tab-content").on('change', "form select",  function() {
+			$.each($("form"), function() {
+				var currentStep = +$(this).find(".current-step").val();
+				$(this).find(".next").bind('click', function(){
+					$("ul.tabs a[href=#tabr" + (currentStep+1) + "]").click();
+				});
+				$(this).find(".previous").bind('click', function() {
+					$("ul.tabs a[href=#tabr" + (currentStep-1) + "]").click();
+				});
 			});
-			$(this).find(".previous").bind('click', function() {
-				$("ul.tabs a[href=#tabr" + (currentStep-1) + "]").click();
-			});
-		})
-		
-	}
-	
-	
-	
+		});
+	};
 });
 </script>
 
