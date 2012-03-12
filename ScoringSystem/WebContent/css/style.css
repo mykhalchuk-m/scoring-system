@@ -4,10 +4,6 @@
 	
 */
 
-/*---------------------------------
-	IMPORTS
------------------------------------*/
-@import url(http://fonts.googleapis.com/img/css?family=Arimo:400,700);
 
 /*---------------------------------
 	OVERRIDES
@@ -91,6 +87,14 @@ line-height:100%;
 -moz-border-radius:3px;
 -webkit-border-radius:3px;
 border-radius:3px;
+}
+
+/*---------------------------------
+	CUSTOM STYLE
+-----------------------------------*/
+.error {
+	border: 1px solid red;
+	color: red;
 }
 
 label{

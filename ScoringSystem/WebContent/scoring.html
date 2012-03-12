@@ -18,45 +18,32 @@
 	<a id="top-of-page"></a>
 	<div id="wrap" class="clearfix">
 		<ul class="menu">
-			<li class="current"><a href="">Крок 1</a></li>
-			<li><a href="">Крок 2</a></li>
-			<li><a href="">Крок 3</a></li>
-			<li><a href="">Крок 4</a></li>
-			<li><a href="">Крок 5</a></li>
+			<li class="current"><a href="">Дані клієнта</a></li>
+			<li><a href="">Про нас</a></li>
+			<li><a href="">Запасний</a></li>
 		</ul>
 		
-		<ul class="breadcrumbs alt1">
-			<li class="current"><a href="">Крок 1</a></li>
-			<li><a href="">Крок 2</a></li>
-			<li><a href="">Крок 3</a></li>
-			<li><a href="">Крок 4</a></li>
-			<li><a href="">Крок 5</a></li>
+<!--		<ul class="breadcrumbs alt1">
+			<li class="previous"><a href="">Крок 1</a></li>
+			<li class="current"><a href="">Крок 2</a></li>
+			<li class="next"><a href="">Крок 3</a></li>
+			<li class="next"><a href="">Крок 4</a></li>
+			<li class="next"><a href="">Крок 5</a></li>
 		</ul>
-			 
-		<div class="col_12">
+-->		 
+		<div id="main" class="col_12 column">
+		<h4 id="counter">Кількість балів <span>0</span></h4>
 			<div class="col_9 column">
+				<ul id="steps" class="tabs left">
+					<li data-tabid="1"><a href="#tabr1">Крок 1</a></li>
+					<li data-tabid="2"><a href="#tabr2">Крок 2</a></li>
+					<li data-tabid="3"><a href="#tabr3">Крок 3</a></li>
+				</ul>
 				
-				<form id="form-step" class="form-step">		
-				<fieldset>
-				<legend>Особисті дані</legend>
-
-					<label for="age" class="col_4">Вік</label>
-					<select id="age" class="fancy col_7">
-						<option value="1">3 роки</option>
-						<option value="2">5 років</option>
-						<option value="3">25 років</option>
-					</select>
-					
-					<label for="time" class="col_4">Вік</label>
-					<select id="time" class="fancy col_7">
-						<option value="1">3 роки</option>
-						<option value="2">5 років</option>
-						<option value="3">Позичальник раніше користувався кредитом в сумі більше 50% від суми кредиту, що замовляється, і не допускав прострочення більше 7 днів</option>
-					</select>
-					
-					<button id="submit" type="submit">Далі<span class="icon" data-icon="}"/></button>
-				</fieldset>
-				</form>
+				<div id="tabr1" class="tab-content">1</div>
+				<div id="tabr2" class="tab-content">2</div>
+				<div id="tabr3" class="tab-content">3</div>
+				
 			</div>
 
 			<div class="col_3">
@@ -72,8 +59,33 @@
 		</div>
 	</div>
 
-	<script type="text/javascript">
-		parse(3);
-	</script>
+<script type="text/javascript">
+$(function() {
+
+	$("#steps li").each(function() {
+		parse($(this).data("tabid"));
+	});
+
+	setTimeout(setCount, 200);
+	
+	function setCount() {
+		var fields = $("form select");
+		var counter = $("#counter");
+
+		fields.bind('change', function() {
+			var sum = 0;
+
+			$.each(fields, function() {
+				var value = +$(this).find("option:selected").val();
+				if(value != 42) {
+					sum += value;
+				};
+			});
+
+			counter.find("span").html(sum);
+		});
+	}
+});
+</script>
 
 </body></html>
