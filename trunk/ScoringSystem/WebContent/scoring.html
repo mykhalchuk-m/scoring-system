@@ -3,10 +3,9 @@
 <title>Скорингова система</title>
 <meta charset="UTF-8">
 <meta name="description" content="" />
-
+<script type="text/javascript" src="js/data-parsing.js"></script>
 <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
 <script type="text/javascript" src="js/jquery-ui-1.8.18.custom.min.js"></script>
-<script type="text/javascript" src="js/data-parsing.js"></script>
 <!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 <script type="text/javascript" src="js/prettify.js"></script>                                   <!-- PRETTIFY -->
 <script type="text/javascript" src="js/kickstart.js"></script>                                  <!-- KICKSTART -->
@@ -16,6 +15,11 @@
 </head>
 
 <body>
+<script type="text/javascript">
+	$(document).ready(function(){
+		parse();
+	});
+</script>
 	<a id="top-of-page"></a>
 	<div id="wrap" class="clearfix">
 		<ul class="menu">
@@ -52,7 +56,7 @@
 					<select id="time" class="fancy col_7">
 						<option value="1">3 роки</option>
 						<option value="2">5 років</option>
-						<option value="3">25 років</option>
+						<option value="3">Позичальник раніше користувався кредитом в сумі більше 50% від суми кредиту, що замовляється, і не допускав прострочення більше 7 днів</option>
 					</select>
 					
 					<button id="submit" type="submit">Далі<span class="icon" data-icon="}"/></button>
@@ -75,7 +79,6 @@
 
 	<script type="text/javascript">
 	$(document).ready(function(){
-		//alert(2);
 		//parse();
 	});
 	</script>
