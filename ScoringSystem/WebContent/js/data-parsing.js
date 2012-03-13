@@ -23,7 +23,6 @@ function callback(xml) {
 }
 
 function createContent(xml) {		
-    var defaultValue = 42;
     var defaultText = '-- Оберіть варіант --';
     
     $(xml).find("bean").each(function(index){
@@ -35,7 +34,7 @@ function createContent(xml) {
             var propId = index + 1;
             content += "<label for='step" + beanId + "-field" + propId + "' class='col_9'>" + $(this).attr("name") + "</label>";
             content += "<select class='fancy' id='step" + beanId + "-field" + propId + "' name='prop" + propId + "'>";
-            content += "<option value='" + defaultValue + "'>" + defaultText + "</option>";
+            content += "<option value=''>" + defaultText + "</option>";
             $(this).find("map entry").each(function() {
                 content += "<option value='" + $(this).attr('value') + "'>";
                 content += $(this).attr('key');
@@ -67,7 +66,7 @@ function setCounter() {
 
         $.each($("form select"), function() {
             var value = +$(this).find("option:selected").val();
-            if(value != 42) {
+            if(value) {
                 sum += value;
             };
         });
@@ -102,14 +101,14 @@ function validate(form) {
     var errors = 0;
     
     form.find('select').each(function() {
-        if($(this).val() == 42){
+        if(!$(this).val()){
             $(this).prev('label').addClass('error');
             $(this).next('.chzn-container').find('.chzn-single').addClass('error');
         }
     });
     
     form.find('select').on('change', function() {
-        if($(this).val() != 42) {
+        if($(this).val()) {
             $(this).prev('label').removeClass('error');
             $(this).next('.chzn-container').find('.chzn-single').removeClass('error');
         }
