@@ -1,4 +1,5 @@
 var lastBeanId = 3;
+var defaultText = '-- Оберіть варіант --';
 
 function parse() {
 	$.ajax({
@@ -14,17 +15,11 @@ function callback(xml) {
     initKick();
     setCounter();
     
-    //navButtons(form);
-    
-    $('.next, .result').on('click', function() {
-        var form = $('.tab-content:visible form');
-        validate(form);
-    });
+	var form = $('.tab-content:visible form');
+    validate(form);
 }
 
 function createContent(xml) {		
-    var defaultText = '-- Оберіть варіант --';
-    
     $(xml).find("bean").each(function(index){
         var content = "";
         var beanId = index + 1;
@@ -71,11 +66,11 @@ function setCounter() {
             };
         });
 
-        counter.find("span").html(sum);
+        counter.find("span").html(sum.toPrecision(3));
     });
 }
 
-function navButtons(form) {
+function navButtonsOn(form) {
     var currentStep = +form.find(".current-step").val();
 
     form.find(".next").bind('click', function(){
@@ -91,37 +86,49 @@ function navButtons(form) {
     });
 }
 
-function offNavButtons(form) {
+function navButtonsOff(form) {
     form.find(".next").off('click');
     form.find(".previous").off('click');
     form.find(".result").off('click');
 }
 
 function validate(form) {
-    var errors = 0;
-    
-    form.find('select').each(function() {
-        if(!$(this).val()){
-            $(this).prev('label').addClass('error');
-            $(this).next('.chzn-container').find('.chzn-single').addClass('error');
-        }
-    });
-    
+	var elements = form.find('select');
+    var errors = elements.length;
+
+	form.find('.next, .result').on('click', function() {
+		elements.each(function() {
+			if(!$(this).val()){
+				$(this).prev('label').addClass('error');
+				$(this).next('.chzn-container').find('.chzn-single').addClass('error');
+				navButtonsOff(form);
+			}
+		});
+
+		if(errors == 0) {
+			navButtonsOn(form);
+			nextStep(form);
+        }		
+	});
+
     form.find('select').on('change', function() {
         if($(this).val()) {
             $(this).prev('label').removeClass('error');
-            $(this).next('.chzn-container').find('.chzn-single').removeClass('error');
+            $(this).next('.chzn-container').find('.chzn-single').removeClass('error');			
+			errors--;
         }
 
-        if($('.error').length == 0) {
-            navButtons(form);
+        if(errors == 0) {
+			navButtonsOn(form);
+			nextStep(form);
         }
-        
     });
- 
-    if($('.error').lenght > 0) {
-        offNavButtons(form);
-        errors = 1;
-    }
+
     return errors;
+}
+
+function nextStep(form) {
+	var currentStep = +form.find('.current-step').val();
+	var nextForm = $('#form-step' + (currentStep+1));
+	validate(nextForm);
 }
