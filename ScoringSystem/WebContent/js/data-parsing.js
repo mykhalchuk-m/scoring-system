@@ -38,7 +38,9 @@ function createContent(xml) {
             content += "</select>";
         });
         
-        content += "<br/><ul class='button-bar'>";
+        content += "<br/>";
+		content += "<button class='medium clear-data'><span class='icon' data-icon='T'></span>Очистити дані</button>";
+		content += "<ul class='button-bar'>";
         if(beanId != 1) {
             content += "<li class='previous'><a href='#'><span class='icon medium' data-icon='{'></span>Назад</a></li>";
         }
@@ -88,6 +90,7 @@ function navButtonsOff(form) {
 }
 
 function validate(form) {
+	setClearData(form);
 	var elements = form.find('select');
     var errors = elements.length;
 	var currentStep = +form.find(".current-step").val();
@@ -131,4 +134,22 @@ function nextStep(form) {
 	var currentStep = +form.find('.current-step').val();
 	var nextForm = $('#form-step' + (currentStep+1));
 	validate(nextForm);
+}
+
+function setClearData(form) {
+	var selects = form.find('select');
+	
+	form.find(".clear-data").bind('click', function(e) {
+		e.preventDefault();
+		
+        selects.each(function() {
+			$(this).val('');
+			var pseudo = $(this).next('.chzn-container');
+			pseudo.find('.chzn-results li').each(function(){
+				$(this).removeClass('result-selected');
+			})
+			pseudo.find('.chzn-results li:first').addClass('result-selected');
+			pseudo.find('>a span').text(defaultText);
+		});
+	});
 }

@@ -128,3 +128,6 @@ form.vertical .chzn-container {
 #steps {
     display: none;
 }
+ul.button-bar {
+	float: right;
+}
