@@ -12,6 +12,7 @@ function parse() {
 
 function callback(xml) {
     createContent(xml);
+    restoreFormState();
     initKick();
     setCounter();
     
@@ -23,7 +24,7 @@ function createContent(xml) {
     $(xml).find("bean").each(function(index){
         var content = "";
         var beanId = index + 1;
-        content += "<form id='form-step" + beanId + "' class='vertical'><fieldset><legend>" + $(this).attr("name") + "</legend>";
+        content += "<form id='form-step" + beanId + "' class='vertical' method='POST'><fieldset><legend>" + $(this).attr("name") + "</legend>";
         content += "<input class='current-step' type='hidden' value='" + beanId + "'/>";
         $(this).find("property").each(function(index){
             var propId = index + 1;
@@ -76,6 +77,7 @@ function navButtonsOn(form) {
     var currentStep = +form.find(".current-step").val();
 
     form.find(".next").bind('click', function(){
+    	saveFormState(form);
         $("ul.tabs a[href=#tabr" + (currentStep+1) + "]").click();
     });
     
@@ -96,10 +98,12 @@ function validate(form) {
 	var currentStep = +form.find(".current-step").val();
 
     form.find(".previous").bind('click', function() {
+    	saveFormState(form);
         $("ul.tabs a[href=#tabr" + (currentStep-1) + "]").click();
     });
 	
 	form.find('.next, .result').on('click', function() {
+		saveFormState(form);
 		elements.each(function() {
 			if(!$(this).val()){
 				$(this).prev('label').addClass('error');
@@ -136,20 +140,49 @@ function nextStep(form) {
 	validate(nextForm);
 }
 
+function serializeObject(form)
+{
+    var o = {};
+    var a = form.serializeArray();
+    $.each(a, function() {
+        if (o[this.name] !== undefined) {
+            if (!o[this.name].push) {
+                o[this.name] = [o[this.name]];
+            }
+            o[this.name].push(this.value || '');
+        } else {
+            o[this.name] = this.value || '';
+        }
+    });
+    return o;
+};
+
+function saveFormState(form) {
+	$.Storage.set(form.attr("id"), JSON.stringify(serializeObject(form)));
+}
+
+function restoreFormState() {
+	$("form").each(function(){
+		var form = $(this)	;
+		var formJSON = $.parseJSON($.Storage.get($(this).attr("id")));
+		if (formJSON) {
+			$.each(formJSON, function(i, el) {
+				var fel = form.find('*[name="' + i + '"]'), type = "", tag = "";
+				if (fel.length > 0) {
+					tag = fel[0].tagName.toLowerCase();
+					if (tag == "select") {
+						$(fel).val(el);
+					}
+				}
+			});
+		}
+	});
+}
+
 function setClearData(form) {
-	var selects = form.find('select');
-	
 	form.find(".clear-data").bind('click', function(e) {
-		e.preventDefault();
-		
-        selects.each(function() {
-			$(this).val('');
-			var pseudo = $(this).next('.chzn-container');
-			pseudo.find('.chzn-results li').each(function(){
-				$(this).removeClass('result-selected');
-			})
-			pseudo.find('.chzn-results li:first').addClass('result-selected');
-			pseudo.find('>a span').text(defaultText);
+		$("form").each(function(){
+			$.Storage.remove($(this).attr("id"));
 		});
 	});
 }
