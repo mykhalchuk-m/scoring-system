@@ -76,10 +76,6 @@ function navButtonsOn(form) {
     form.find(".next").bind('click', function(){
         $("ul.tabs a[href=#tabr" + (currentStep+1) + "]").click();
     });
-
-    form.find(".previous").bind('click', function() {
-        $("ul.tabs a[href=#tabr" + (currentStep-1) + "]").click();
-    });
     
     form.find(".result").bind('click', function() {
         $("ul.tabs a[href=#tabr" + (lastBeanId+1) + "]").click();
@@ -88,14 +84,18 @@ function navButtonsOn(form) {
 
 function navButtonsOff(form) {
     form.find(".next").off('click');
-    form.find(".previous").off('click');
     form.find(".result").off('click');
 }
 
 function validate(form) {
 	var elements = form.find('select');
     var errors = elements.length;
+	var currentStep = +form.find(".current-step").val();
 
+    form.find(".previous").bind('click', function() {
+        $("ul.tabs a[href=#tabr" + (currentStep-1) + "]").click();
+    });
+	
 	form.find('.next, .result').on('click', function() {
 		elements.each(function() {
 			if(!$(this).val()){
