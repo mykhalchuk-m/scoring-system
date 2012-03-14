@@ -124,10 +124,20 @@ br {
 form.vertical .chzn-container {
     margin-bottom: 15px;
 }
-
-#steps {
-    display: none;
-}
 ul.button-bar {
 	float: right;
+}
+
+#breadcrumb{
+    overflow: hidden;
+    list-style-type: none;
+}   
+
+#breadcrumb li {
+    float: left;
+    padding: 5px 10px;
+}
+#breadcrumb li.current {
+
+background-color: blue;
 }
