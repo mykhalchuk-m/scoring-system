@@ -6,7 +6,7 @@ function getSum() {
             sum += value;
         };
     });
-	return sum;
+	return sum.toFixed(1);
 }
 
 function getResultData() {
