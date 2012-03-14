@@ -4,7 +4,7 @@
 */
 
 //jQuery(document).ready(function($){
-function initKick() {
+function initKickStarter() {
 
 	/*---------------------------------
 		MENU Dropdowns

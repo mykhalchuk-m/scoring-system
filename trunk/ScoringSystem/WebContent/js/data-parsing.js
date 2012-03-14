@@ -10,7 +10,7 @@ function parse() {
 function callback(xml) {
     createContent(xml);
     restoreFormState();
-    initKick();
+    initKickStarter();
     initTabs();
     initForm();
     setCounter();
@@ -48,7 +48,7 @@ function createContent(xml) {
         });
 
         content += "<br/>";
-		var buttons = createButtons(beanId, steps);
+		content += createButtons(beanId, steps);
         
     });
     content += "<div id='step-content-" + (steps+1) + "' class='step-content last'>Кількість балів <span class='counter'></span></div>";
@@ -111,6 +111,9 @@ function setCounter() {
     });
 }
 
+/*
+	Bind events to Previous/Next buttons to switch steps
+*/
 function navButtonsOn(form) {
     var currentStep = +form.find(".current-step").val();
     
