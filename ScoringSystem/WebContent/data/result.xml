@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+	
+	<bean name="A">
+		<property name="minValue" value="60"/>
+		<property name="maxValue" value=""/>
+		<property name="desription" value="Фінансовий стан позичальника не викликає сумнівів"/>
+	</bean>
+
+	<bean name="B">
+		<property name="minValue" value="45"/>
+		<property name="maxValue" value="60"/>
+		<property name="desription" value="Фінансовий стан добрий – видача кредиту можлива"/>
+	</bean>
+
+	<bean name="C">
+		<property name="minValue" value="30"/>
+		<property name="maxValue" value="45"/>
+		<property name="desription" value="Фінансовий стан задовільний, необхідна ретельна перевірка"/>
+	</bean>
+
+	<bean name="D">
+		<property name="minValue" value="15"/>
+		<property name="maxValue" value="30"/>
+		<property name="desription" value="Фінансовий стан незадовільний, видача кредиту недоцільна"/>
+	</bean>
+
+	<bean name="d">
+		<property name="minValue" value=""/>
+		<property name="maxValue" value="15"/>
+		<property name="desription" value="У видачі кредиту відмовлено"/>
+	</bean>
+
+</beans>
