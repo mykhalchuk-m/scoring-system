@@ -13,7 +13,7 @@ function callback(xml) {
     initKickStarter();
     initTabs();
     initForm();
-    setCounter();
+    initCounter();
 }
 
 /*
@@ -52,8 +52,7 @@ function createContent(xml) {
         
     });
     content += "<div id='step-content-" + (steps+1) + "' class='step-content last'>Кількість балів <span class='counter'></span></div>";
-
-    
+  
     $("#steps").append(breadcrumb);
     $("#steps").append(content);
 }
@@ -94,21 +93,24 @@ function createButtons(step, steps) {
 	return content;
 }
 
-function setCounter() {
-    var counter = $(".counter");
-
-    $(".tab-content").on('change', "form select",  function() {
+function initCounter() {
+    $(".step-content").on('change', "form select",  function() {
         var sum = 0;
 
         $.each($("form select"), function() {
             var value = +$(this).find("option:selected").val();
             if(value) {
                 sum += value;
+				setCounter(sum);
             };
         });
-
-        counter.html(sum.toPrecision(3));
+		
     });
+}
+
+function setCounter(sum) {
+	var counter = $(".counter");
+	counter.html(sum.toPrecision(3));
 }
 
 /*
@@ -124,12 +126,15 @@ function navButtonsOn(form) {
 		var tab_current = $(".step-content:visible");
 		$(tab_current).hide();
 		tabs.removeClass('current');
+		$("#breadcrumb").find(".step"+(currentStep)).addClass('previous');
 		$("#breadcrumb").find(".step"+(currentStep+1)).addClass('current');
-		$(tab_next).show('slow', function(){
+		$(tab_next).show(function(){
             $(this).trigger('initForm');
         });
 		return false;
 	});
+	
+	//$('.result').on('click', setCounter(initCounter()));
 }
 
 function navButtonsOff(form) {
@@ -155,7 +160,9 @@ function validate(form) {
 
 		if(errors == 0) {
 			navButtonsOn(form);
-        }		
+        } else {
+			flashError(errors);
+		}
 	});
 
     form.find('select').on('change', function() {
@@ -171,12 +178,6 @@ function validate(form) {
     });
 
     return errors;
-}
-
-function nextStep(form) {
-	var currentStep = +form.find('.current-step').val();
-	var nextForm = $('#form-step' + (currentStep+1));
-	validate(nextForm);
 }
 
 function initForm(){
@@ -199,5 +200,9 @@ function initTabs() {
 		current = $(this).find('li.current a').attr('href');
 		$(current).show();
 	});
+}
 
+function flashError(errors) {
+	$('.notice.error').find('.error-count').html(errors);
+	$('.notice.error').fadeIn('slow').delay(1000).fadeOut('slow');
 }
