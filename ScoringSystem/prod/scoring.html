@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html><head>
+<title>Скорингова система</title>
+<meta charset="UTF-8">
+<meta name="description" content="" />
+<script type="text/javascript" src="js/data-parsing.js"></script>
+<script type="text/javascript" src="js/init-form-elems.js"></script>
+<script type="text/javascript" src="js/result-generator.js"></script>
+<script type="text/javascript" src="js/state-processing.js"></script>
+<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="js/jquery.Storage.js"></script>
+<script type="text/javascript" src="js/jquery-ui-1.8.18.custom.min.js"></script>
+<script type="text/javascript" src="js/prefixfree.min.js"></script>
+<!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+<script type="text/javascript" src="js/prettify.js"></script>                                   <!-- PRETTIFY -->
+<script type="text/javascript" src="js/kickstart.js"></script>                                  <!-- KICKSTART -->
+
+<link rel="stylesheet" type="text/css" href="css/kickstart.css" media="all" />                  <!-- KICKSTART -->
+<link rel="stylesheet" type="text/css" href="css/style.css" media="all" />                      <!-- CUSTOM STYLES -->
+</head>
+
+<body>
+	<div id="wrap" class="clearfix">
+		<ul class="menu">
+			<li class="current"><a href="">Дані клієнта</a></li>
+			<li><a href="">Про нас</a></li>
+		</ul>
+	 
+		<div id="main" class="col_12 column">
+			<div class="notice error">Не всі поля заповнені.<br>залишилось ще <span class="error-count"></span></div>
+			<div id="steps" class="col_9 column"></div>
+
+			<div class="col_3">
+				<h6>Підказка</h6>
+                <p>Оберіть підходящий вам варіант. Всі поля повинні обов'язково бути заповнені.</p>
+			</div>
+
+		</div>
+
+		<div class="clear"></div>
+
+		<div id="footer">
+		</div>
+	</div>
+
+<script type="text/javascript">	
+$(function() {
+    parse();
+});
+</script>
+
+</body></html>
