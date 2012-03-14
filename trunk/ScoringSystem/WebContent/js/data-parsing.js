@@ -1,7 +1,7 @@
 function parse() {
 	$.ajax({
 		type : "GET",
-		url : "data/data1.xml",
+		url : "data/data.xml",
 		dataType : "xml",
 		success : callback
     });
