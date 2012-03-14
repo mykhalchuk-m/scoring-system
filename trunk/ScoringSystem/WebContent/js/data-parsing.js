@@ -1,7 +1,7 @@
 function parse() {
 	$.ajax({
 		type : "GET",
-		url : "data/data.xml",
+		url : "data/data1.xml",
 		dataType : "xml",
 		success : callback
     });
@@ -9,11 +9,9 @@ function parse() {
 
 function callback(xml) {
     createContent(xml);
-    restoreFormState();
     initKickStarter();
+    initForms();
     initTabs();
-    initForm();
-    initCounter();
 }
 
 /*
@@ -51,7 +49,13 @@ function createContent(xml) {
 		content += createButtons(beanId, steps);
         
     });
-    content += "<div id='step-content-" + (steps+1) + "' class='step-content last'>Кількість балів <span class='counter'></span></div>";
+    content += "<div id='step-content-" + (steps+1) + "' class='step-content last counter'>";
+    content += "<form class='vertical'><fieldset><legend>Результат</legend><h4>Кількість балів:</h4>";
+    content += "<p class='yoursum'></p><h4>Клас замовника:</h4><p class='customerClass'></p><h4>Характеристика замовника:</h4><p class='decsription'></p>";
+    content += "<button class='medium clear-data'><span class='icon' data-icon='T'></span>Очистити дані</button>";
+	content += "<ul class='button-bar'>";
+	content += "<li class='previous'><a href='#step-content-" + (steps) + "'><span class='icon medium' data-icon='{'></span>Назад</a></li>";
+    content += "</ul></fieldset></form></div>";
   
     $("#steps").append(breadcrumb);
     $("#steps").append(content);
@@ -93,113 +97,9 @@ function createButtons(step, steps) {
 	return content;
 }
 
-function initCounter() {
-    $(".step-content").on('change', "form select",  function() {
-        var sum = 0;
-
-        $.each($("form select"), function() {
-            var value = +$(this).find("option:selected").val();
-            if(value) {
-                sum += value;
-				setCounter(sum);
-            };
-        });
-		
-    });
-}
-
-function setCounter(sum) {
-	var counter = $(".counter");
-	counter.html(sum.toPrecision(3));
-}
-
-/*
-	Bind events to Previous/Next buttons to switch steps
-*/
-function navButtonsOn(form) {
-    var currentStep = +form.find(".current-step").val();
-    
-    $('ul.button-bar a[href^="#"]').on('click', function(e){
-		e.preventDefault();
-		var tabs = $("#breadcrumb li");
-		var tab_next = $(this).attr('href');
-		var tab_current = $(".step-content:visible");
-		$(tab_current).hide();
-		tabs.removeClass('current');
-		$("#breadcrumb").find(".step"+(currentStep)).addClass('previous');
-		$("#breadcrumb").find(".step"+(currentStep+1)).addClass('current');
-		$(tab_next).show(function(){
-            $(this).trigger('initForm');
-        });
-		return false;
-	});
-	
-	//$('.result').on('click', setCounter(initCounter()));
-}
-
-function navButtonsOff(form) {
-    form.find(".next").off('click');
-    form.find(".result").off('click');
-}
-
-function validate(form) {
-	setClearData(form);
-	var elements = form.find('select');
-    var errors = elements.length;
-	var currentStep = +form.find(".current-step").val();
-	
-	form.find('.next, .result').on('click', function() {
-		saveFormState(form);
-		elements.each(function() {
-			if(!$(this).val()){
-				$(this).prev('label').addClass('error');
-				$(this).next('.chzn-container').find('.chzn-single').addClass('error');
-				navButtonsOff(form);
-			}
-		});
-
-		if(errors == 0) {
-			navButtonsOn(form);
-        } else {
-			flashError(errors);
-		}
-	});
-
-    form.find('select').on('change', function() {
-        if($(this).val()) {
-            $(this).prev('label').removeClass('error');
-            $(this).next('.chzn-container').find('.chzn-single').removeClass('error');			
-			errors--;
-        }
-
-        if(errors == 0) {
-			navButtonsOn(form);
-        }
-    });
-
-    return errors;
-}
-
-function initForm(){
-    var form = $('.step-content:visible form');
-	
-    form.find(".previous").bind('click', function() {
-    	saveFormState(form);
-        $("ul.tabs a[href=#tabr" + (currentStep-1) + "]").click();
-    });
-
-    validate(form);
-}
-
 function initTabs() {
     $('.step-content').addClass('clearfix').not(':first').hide();
     $('#breadcrumb li:first').addClass('current');
-	$('ul.steps').each(function(){
-		var current = $(this).find('li.current');
-		if(current.length < 1) { $(this).find('li:first').addClass('current'); }
-		current = $(this).find('li.current a').attr('href');
-		$(current).show();
-	});
 }
 
 function flashError(errors) {
