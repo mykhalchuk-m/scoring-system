@@ -12,12 +12,13 @@ function callback(xml) {
     restoreFormState();
     initKick();
     initTabs();
-    setCounter();
     initForm();
-	// var form = $('.tab-content:visible form');
-    // validate(form);
+    setCounter();
 }
 
+/*
+	Generate content from XML file
+*/
 function createContent(xml) {
 	var defaultText = '-- Оберіть варіант --';
     var steps = $(xml).find("bean").length;
@@ -47,19 +48,7 @@ function createContent(xml) {
         });
 
         content += "<br/>";
-		content += "<button class='medium clear-data'><span class='icon' data-icon='T'></span>Очистити дані</button>";
-		content += "<ul class='button-bar'>";
-
-        if(beanId != 1) {
-            content += "<li class='previous'><a href='#step-content-" + (beanId-1) + "'><span class='icon medium' data-icon='{'></span>Назад</a></li>";
-        }
-        if(beanId != steps) {
-            content += "<li class='next'><a href='#step-content-" + (beanId+1) + "'><span class='icon medium' data-icon='}'></span>Далі</a></li>";
-        }
-        if(beanId == steps) {
-            content += "<li class='result'><a href='#step-content-" + (beanId+1) + "'><span class='icon medium' data-icon='}'></span>Результат</a></li>";
-        }
-        content += "</ul></fieldset></form></div>";
+		var buttons = createButtons(beanId, steps);
         
     });
     content += "<div id='step-content-" + (steps+1) + "' class='step-content last'>Кількість балів <span class='counter'></span></div>";
@@ -68,18 +57,41 @@ function createContent(xml) {
     $("#steps").append(breadcrumb);
     $("#steps").append(content);
 }
-
+/*
+	Creates Breadcrumb bar (display step progress)
+*/
 function createBreadcrumb(steps) {
     var stepText = 'Крок ';
     var finalStepText = 'Результат';
-    var breadcrumb = '<ul id="breadcrumb">';
+    var content = '<ul id="breadcrumb">';
 
     for(var i=1; i<=steps; i++) {
-        breadcrumb += '<li class="step' + i + '">' + stepText + i + '</li>';
+        content += '<li class="step' + i + '">' + stepText + i + '</li>';
     }
-    breadcrumb +='<li class="step' + i + ' last">' + finalStepText + '</li></ul>';
+    content +='<li class="step' + i + ' last">' + finalStepText + '</li></ul>';
     
-    return breadcrumb;
+    return content;
+}
+
+/*
+	Creates ClearData button and Next/Previous/Result buttons bar
+*/
+function createButtons(step, steps) {
+	var content = "<button class='medium clear-data'><span class='icon' data-icon='T'></span>Очистити дані</button>";
+	content += "<ul class='button-bar'>";
+
+	if(step != 1) {
+		content += "<li class='previous'><a href='#step-content-" + (step-1) + "'><span class='icon medium' data-icon='{'></span>Назад</a></li>";
+	}
+	if(step != steps) {
+		content += "<li class='next'><a href='#step-content-" + (step+1) + "'><span class='icon medium' data-icon='}'></span>Далі</a></li>";
+	}
+	if(step == steps) {
+		content += "<li class='result'><a href='#step-content-" + (step+1) + "'><span class='icon medium' data-icon='}'></span>Результат</a></li>";
+	}
+	content += "</ul></fieldset></form></div>";
+	
+	return content;
 }
 
 function setCounter() {
@@ -115,15 +127,6 @@ function navButtonsOn(form) {
         });
 		return false;
 	});
-
-    // form.find(".next").bind('click', function(){
-    	// saveFormState(form);
-        // $("ul.tabs a[href=#tabr" + (currentStep+1) + "]").click();
-    // });
-    
-    // form.find(".result").bind('click', function() {
-        // $("ul.tabs a[href=#tabr" + (lastBeanId+1) + "]").click();
-    // });
 }
 
 function navButtonsOff(form) {
@@ -149,7 +152,6 @@ function validate(form) {
 
 		if(errors == 0) {
 			navButtonsOn(form);
-			//nextStep(form);
         }		
 	});
 
@@ -162,7 +164,6 @@ function validate(form) {
 
         if(errors == 0) {
 			navButtonsOn(form);
-			//nextStep(form);
         }
     });
 
