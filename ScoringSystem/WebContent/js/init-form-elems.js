@@ -40,7 +40,7 @@ function initPrevClick(form) {
 		var tab_current = $(".step-content:visible");
 		$(tab_current).hide();
 		tabs.removeClass('current');
-		$("#breadcrumb").find(".step"+(currentStep)).addClass('previous');
+		$("#breadcrumb").find(".step"+(currentStep));
 		$("#breadcrumb").find(".step"+(currentStep-1)).addClass('current');
 		$(tab_prev).show(0);
 		return false;
