@@ -10,6 +10,7 @@
 <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
 <script type="text/javascript" src="js/jquery.Storage.js"></script>
 <script type="text/javascript" src="js/jquery-ui-1.8.18.custom.min.js"></script>
+<script type="text/javascript" src="js/prefixfree.min.js"></script>
 <!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 <script type="text/javascript" src="js/prettify.js"></script>                                   <!-- PRETTIFY -->
 <script type="text/javascript" src="js/kickstart.js"></script>                                  <!-- KICKSTART -->
@@ -19,7 +20,6 @@
 </head>
 
 <body>
-	<a id="top-of-page"></a>
 	<div id="wrap" class="clearfix">
 		<ul class="menu">
 			<li class="current"><a href="">Дані клієнта</a></li>
@@ -28,9 +28,8 @@
 		</ul>
 	 
 		<div id="main" class="col_12 column">
-			<div id="steps" class="col_9 column">
-				<div class="notice error">Не всі поля заповнені.<br>залишилось ще <span class="error-count"></span></div>
-			</div>
+			<div class="notice error">Не всі поля заповнені.<br>залишилось ще <span class="error-count"></span></div>
+			<div id="steps" class="col_9 column"></div>
 
 			<div class="col_3">
 				<h6>Якийсь хелпер</h6>
@@ -42,7 +41,6 @@
 		<div class="clear"></div>
 
 		<div id="footer">
-			<a id="link-top" href="#top-of-page">Вгору</a>
 		</div>
 	</div>
 
